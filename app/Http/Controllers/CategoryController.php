@@ -9,29 +9,24 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        // Mengambil semua data
         return response()->json(Category::all());
     }
 
     public function store(Request $request)
-    {
-        // Validasi: memastikan 'name' wajib diisi
+    {   
         $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        // Simpan data
         $category = Category::create($validated);
         
         return response()->json($category, 201);
     }
-
     public function show($id)
     {
         $category = Category::findOrFail($id);
         return response()->json($category);
     }
-
     public function update(Request $request, $id)
     {
         $category = Category::findOrFail($id);
